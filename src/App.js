@@ -1,17 +1,8 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { useEffect } from "react";
-import {
-  getAllCity,
-  getCityImage,
-  getCityLatLongImage,
-  getCitySearch,
-  getCityLatLongImageUrban,
-  getWeekForcast,
-} from "./helper/api";
+import styled from "styled-components";
+import { Container } from "./components/Container";
 
 function App() {
-  useEffect(() => {
+  /* useEffect(() => {
     WeatherFromSearch("Belgrade");
     WeatherFromDropDown(22);
   }, []);
@@ -31,26 +22,42 @@ function App() {
     const { lat, lon, image } = await getCityLatLongImageUrban(urban_api);
     const data = await getWeekForcast(lat, lon);
     console.log(`Base on Dropdown : `, data);
-  };
+  };*/
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContainerMain>
+      <Title>
+        <h4>Weathery</h4>
+      </Title>
+      <Container />
+    </ContainerMain>
   );
 }
+
+const ContainerMain = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const Title = styled.div`
+  width: 70%;
+  margin-bottom: 1rem;
+  color: var(--color-white);
+
+  //Tablet
+  @media (min-width: 768px) and (max-width: 1024px) {
+    width: 80%;
+  }
+
+  //Mobile
+  @media (max-width: 767px) {
+    /* CSS */
+    width: 95%;
+  }
+`;
 
 export default App;
