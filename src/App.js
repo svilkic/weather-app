@@ -1,11 +1,15 @@
-import styled from "styled-components";
-import { Container } from "./components/Container";
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+import { Container } from './components/Container';
+import { Dropdown } from './components/UI/Dropdown';
 
 function App() {
+  const { t } = useTranslation();
   return (
     <ContainerMain>
+      <Dropdown />
       <Title>
-        <h4>Weather Data</h4>
+        <h4>{t('title')}</h4>
       </Title>
       <Container />
     </ContainerMain>
