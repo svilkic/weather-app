@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 // Style
-import styled from "styled-components";
+import styled from 'styled-components';
 // Components
-import { AdditionalWeatherData } from "../AdditionalWeatherData";
-import { CurrentWeatherData } from "../CurrentWeatherData";
-import { WeekWeatherData } from "../WeekWeatherData";
+import { AdditionalWeatherData } from '../AdditionalWeatherData';
+import { CurrentWeatherData } from '../CurrentWeatherData';
+import { WeekWeatherData } from '../WeekWeatherData';
 
 export function Container() {
   return (
@@ -23,6 +23,7 @@ const ContainerDiv = styled.div`
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 1rem;
+  overflow: hidden;
 
   //Tablet
   @media (min-width: 768px) and (max-width: 1024px) {
