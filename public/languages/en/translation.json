@@ -3,6 +3,14 @@
   "Humidity": "Humidity",
   "DewPt": "Dew Pt.",
   "UvIndex": "UV Index",
-  "Visibility": "Visibility"
-  
+  "Visibility": "Visibility",
+  "Week": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ]
 }

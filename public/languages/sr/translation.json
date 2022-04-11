@@ -3,6 +3,14 @@
   "Humidity": "Vlažnost",
   "DewPt": "Tačka rose",
   "UvIndex": "UV Index",
-  "Visibility": "Preglednost"
-
+  "Visibility": "Preglednost",
+  "Week": [
+    "Nedelja",
+    "Ponedeljak",
+    "Utorak",
+    "Sreda",
+    "Cetvrtak",
+    "Petak",
+    "Subota"
+  ]
 }
