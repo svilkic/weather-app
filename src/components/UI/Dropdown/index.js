@@ -5,11 +5,11 @@ import {IoIosArrowDown} from 'react-icons/io';
 
 export function Dropdown(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const toggling = () => setIsOpen(!isOpen);
-  const [selectedOption, setSelectedOption] = useState(props?.list[0]);
+  const handleChange = () => setIsOpen(!isOpen);
+  const [handleOption, setHandleOption] = useState(props?.list[0]);
 
-    const onOptionClicked = value => {
-    setSelectedOption(value);
+    const handleClicked = value => {
+    setHandleOption(value);
     setIsOpen(false);
     props.onSelect(value);
 };
@@ -19,12 +19,12 @@ export function Dropdown(props) {
   return (
     <Main>
       <DropDownContainer>
-        <DropDownHeader onClick={toggling}>{selectedOption.name}<IoIosArrowDown/></DropDownHeader>
+        <DropDownHeader onClick={handleChange}>{handleOption.name}<IoIosArrowDown/></DropDownHeader>
         {isOpen && (
           <DropDownListContainer>
             <DropDownList>
               {props?.list.map((item) => (
-                <ListItem onClick={() => onOptionClicked(item)}>{item.name} </ListItem>
+                <ListItem onClick={() => handleClicked(item)}>{item.name} </ListItem>
               ))}
             </DropDownList>
           </DropDownListContainer>

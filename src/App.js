@@ -8,7 +8,7 @@ import i18next from 'i18next';
 function App() {
 
   const handleLanguageChange = (lang = "en") => {
-    console.log(lang);
+
    
 
     i18next.changeLanguage(lang.name);
