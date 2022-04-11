@@ -2,12 +2,26 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Container } from './components/Container';
 import { Dropdown } from './components/UI/Dropdown';
+import { LANGUAGES } from './constants/language';
+import i18next from 'i18next';
 
 function App() {
+
+  const handleLanguageChange = (lang = "en") => {
+    console.log(lang);
+   
+
+    i18next.changeLanguage(lang.name);
+    
+    };
+
   const { t } = useTranslation();
+
+
   return (
     <ContainerMain>
-      <Dropdown />
+      <Dropdown onSelect = {handleLanguageChange} list = {LANGUAGES}/>
+    
       <Title>
         <h4>{t('title')}</h4>
       </Title>
