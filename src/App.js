@@ -1,10 +1,19 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Container } from './components/Container';
 import { Dropdown } from './components/UI/Dropdown';
+import { fetchCities } from './store/slices/weatherSlice';
 
 function App() {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    dispatch(fetchCities());
+  }, []);
+
   return (
     <ContainerMain>
       <Dropdown />
