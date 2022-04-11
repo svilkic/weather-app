@@ -3,6 +3,8 @@
   "Humidity": "Vlažnost",
   "DewPt": "Tačka rose",
   "UvIndex": "UV Index",
-  "Visibility": "Preglednost"
+  "Visibility": "Preglednost",
+  "Sunny": "Sunčano",
+  "Updated": "Ažurirano"
 
 }

@@ -3,6 +3,8 @@
   "Humidity": "Humidity",
   "DewPt": "Dew Pt.",
   "UvIndex": "UV Index",
-  "Visibility": "Visibility"
+  "Visibility": "Visibility",
+  "Sunny": "Sunny",
+  "Updated": "Updated"
   
 }
