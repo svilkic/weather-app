@@ -1,34 +1,41 @@
-import React from "react";
-import styled from "styled-components";
-import { WeatherData } from "../WeatherData/Index";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import styled from 'styled-components';
+import { WeatherData } from '../WeatherData/Index';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export function AdditionalWeatherData(props) {
-
   const { t } = useTranslation();
-  
+  const { currentForecast } = useSelector((state) => state.weather);
+  const { dew_point, humidity, visibility, uvi } = currentForecast;
+
+  const humidityFormatted = `${humidity}%`;
+  const dewPointFormatted = `${Math.round(dew_point)}°`;
+  const uvIndexFormatted = `${Math.round(uvi)}/10`;
+  const visibilityFormatted = `${(visibility / 1000).toFixed(1)}km`;
+
   return (
     <Container>
       <DataGrid>
         <WeatherData
-          value={"87%"}
-          text={t("Humidity")}
-          gridArea={"1 / 1 / 2 / 2"}
+          value={humidityFormatted}
+          text={t('Humidity')}
+          gridArea={'1 / 1 / 2 / 2'}
         />
         <WeatherData
-          value={"0/10"}
-          text={t("UvIndex")}
-          gridArea={"2 / 1 / 3 / 7"}
+          value={uvIndexFormatted}
+          text={t('UvIndex')}
+          gridArea={'2 / 1 / 3 / 7'}
         />
         <WeatherData
-          value={"25°"}
-          text={t("DewPt")}
-          gridArea={"1 / 2 / 2 / 3"}
+          value={dewPointFormatted}
+          text={t('DewPt')}
+          gridArea={'1 / 2 / 2 / 3'}
         />
         <WeatherData
-          value={"3.0 km"}
-          text={t("Visibility")}
-          gridArea={" 2 / 2 / 3 / 3"}
+          value={visibilityFormatted}
+          text={t('Visibility')}
+          gridArea={' 2 / 2 / 3 / 3'}
         />
       </DataGrid>
     </Container>

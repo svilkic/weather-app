@@ -61,14 +61,17 @@ export function WeekWeatherData() {
 const Container = styled.div`
   background-color: #38663a;
   grid-area: 1 / 3 / 6 / 7;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
   background: url(${(props) => props.img || ''});
-  background-position: center;
+  background-position: bottom;
   background-size: cover;
   filter: saturate(120%);
-  overflow: hidden;
+  filter: brightness(1.35);
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 1rem;
 
   //Tablet
   @media (max-width: 1024px) {
@@ -79,6 +82,7 @@ const Container = styled.div`
   @media (max-width: 767px) {
     /* CSS */
     height: 95vh;
+    grid-template-rows: repeat(1, 1fr);
   }
 `;
 
@@ -90,11 +94,12 @@ const GradiantBackdrop = styled.div`
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(125, 125, 125, 0) 100%
   );
 `;
 
 const DataSection = styled.div`
+  grid-area: 1 / 1 / 4 / 8;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -112,17 +117,16 @@ const DateElement = styled.h3`
   color: var(--color-white);
   font-weight: 100;
   margin-top: 1.12rem;
-  opacity: 0.7;
+  opacity: 0.6;
 `;
 
 const WeekCards = styled.div`
+  grid-area: 4 / 1 / 6 / 8;
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-auto-flow: row;
-  height: 40%;
-  gap: 1pt;
-  padding: 0 0.1px;
+  padding: 0 1px;
 
   //Mobile
   @media (max-width: 767px) {
