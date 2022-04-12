@@ -22,7 +22,7 @@ export function Dropdown(props) {
         </DropDownHeader >
 
         {isOpen && (
-          <DropDownListContainer position={props.position} width={props.width}>
+          <DropDownListContainer width={props.width}>
             <DropDownList width={props.width}>
               {props?.list.map((item) => (
                 <ListItem onClick={() => handleClicked(item)}>
@@ -53,16 +53,16 @@ const DropDownHeader = styled("div")`
 `;
 
 const DropDownListContainer = styled("div")`
-  width:  ${props => props.width || '' };
+  width:  ${props => props.width || '250px' };
   margin-left: 32px;
-  position: ${props => props.position || '' };
+  position:absolute;
 
 `;
 
 const DropDownList = styled("ul")`
 background: DarkGray;
 list-style: none;
-${props => props.position || '' };
+
 
   max-height:200px;  
   overflow-x:hidden;
