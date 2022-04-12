@@ -20,7 +20,7 @@ function App() {
 
   return (
     <ContainerMain>
-      <Dropdown onSelect = {handleLanguageChange} list = {LANGUAGES}/>
+      <Dropdown onSelect = {handleLanguageChange} list = {LANGUAGES} fontSize={'20px'}  position={'absolute'} width={'5%'}/>
     
       <Title>
         <h4>{t('title')}</h4>
