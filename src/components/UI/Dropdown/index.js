@@ -4,8 +4,17 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export function Dropdown(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleChange = () => setIsOpen(!isOpen);
-  const [handleOption, setHandleOption] = useState(props?.list[0]);
+  // const handleChange = () => setIsOpen(!isOpen);
+  const [handleOption, setHandleOption] = useState(props?.list[0] || [] );
+  
+
+  const handleChange = () => {
+    if (props?.list.length == 0) 
+    return;
+    setIsOpen(!isOpen);
+
+  }
+
 
   const handleClicked = (value) => {
     setHandleOption(value);
@@ -17,19 +26,28 @@ export function Dropdown(props) {
     <Main>
       <DropDownContainer >
         <DropDownHeader onClick={handleChange} fontSize={props.fontSize}>
+          
           {handleOption.name}
-          <IoIosArrowDown />
+          {props?.list.length == 0 && 
+          <Information>
+             <p>Loading...</p>
+          </Information>
+          }
+          {props?.list.length !== 0 &&
+          <IoIosArrowDown />  }
         </DropDownHeader >
 
         {isOpen && (
-          <DropDownListContainer width={props.width}>
-            <DropDownList width={props.width}>
+          <DropDownListContainer >
+            {props?.list.length > 0 ? (
+            <DropDownList>
               {props?.list.map((item) => (
                 <ListItem onClick={() => handleClicked(item)}>
                   {item.name}
                 </ListItem>
-              ))}
+              ))} 
             </DropDownList>
+            ) : 'Loading...'} 
           </DropDownListContainer>
         )}
       </DropDownContainer>
@@ -53,7 +71,7 @@ const DropDownHeader = styled("div")`
 `;
 
 const DropDownListContainer = styled("div")`
-  width:  ${props => props.width || '250px' };
+
   margin-left: 32px;
   position:absolute;
 
@@ -82,5 +100,11 @@ const ListItem = styled("li")`
  padding:7px;
   position: relative;
   text-decoration: none;
+
+`;
+
+const Information = styled.p`
+font-size:30px;
+color: white;
 
 `;
