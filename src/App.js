@@ -6,22 +6,20 @@ import { LANGUAGES } from './constants/language';
 import i18next from 'i18next';
 
 function App() {
-
-  const handleLanguageChange = (lang = "en") => {
-
-   
-
+  const handleLanguageChange = (lang = 'en') => {
     i18next.changeLanguage(lang.name);
-    
-    };
+  };
 
   const { t } = useTranslation();
 
-
   return (
     <ContainerMain>
-      <Dropdown onSelect = {handleLanguageChange} list = {LANGUAGES} fontSize={'20px'} />
-    
+      <Dropdown
+        onSelect={handleLanguageChange}
+        list={LANGUAGES}
+        fontSize={'20px'}
+      />
+
       <Title>
         <h4>{t('title')}</h4>
       </Title>
