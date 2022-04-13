@@ -2,12 +2,21 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Container } from './components/Container';
 import { Dropdown } from './components/UI/Dropdown';
+import { LANGUAGES } from './constants/language';
+import i18next from 'i18next';
 
 function App() {
+  const handleLanguageChange = (lang = 'en') => {
+    i18next.changeLanguage(lang.name);
+  };
+
   const { t } = useTranslation();
+
   return (
     <ContainerMain>
-      <Dropdown />
+      <DropdownSmall>
+        <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
+      </DropdownSmall>
       <Title>
         <h4>{t('title')}</h4>
       </Title>
@@ -40,6 +49,10 @@ const Title = styled.div`
     /* CSS */
     width: 95%;
   }
+`;
+
+const DropdownSmall = styled(Dropdown)`
+  font-size: 25px;
 `;
 
 export default App;
