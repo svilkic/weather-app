@@ -1,34 +1,36 @@
-import React from "react";
-import styled from "styled-components";
-import { Dropdown } from "../UI/Dropdown";
+import React from 'react';
+import styled from 'styled-components';
+import { Dropdown } from '../UI/Dropdown';
 
+const cities = [
+  {
+    id: '1',
+    name: 'NORWAY',
+  },
+  {
+    id: '2',
+    name: 'BELGRADE',
+  },
 
-const city = [{
-  id: '1',
-  name: 'NORWAY'
-},
-{
-  id: '2',
-  name: 'BELGRADE'
-},
+  {
+    id: '3',
+    name: 'FRANCE',
+  },
 
-{
-  id: '3',
-  name: 'FRANCE'
-},
-
-{
-  id: '4',
-  name: 'SAD'
-},
-
+  {
+    id: '4',
+    name: 'SAD',
+  },
 ];
 
-
 export function WeekWeatherData() {
-  return <Container>
-    <Dropdown list = {city} onSelect = {(item) => console.log(item)} fontSize={'50px'} />
-  </Container>;
+  return (
+    <Container>
+      <DropdownBig>
+        <Dropdown list={cities} onSelect={(item) => console.log(item)} />
+      </DropdownBig>
+    </Container>
+  );
 }
 const Container = styled.div`
   background-color: grey;
@@ -43,4 +45,8 @@ const Container = styled.div`
   @media (max-width: 767px) {
     /* CSS */
   }
+`;
+
+const DropdownBig = styled(Dropdown)`
+  font-size: 50px;
 `;

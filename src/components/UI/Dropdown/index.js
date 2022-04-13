@@ -3,74 +3,80 @@ import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export function Dropdown(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [handleOption, setHandleOption] = useState(props?.list[0] || []);
+  const childrenProps = props?.children?.props || props;
+  return (
+    <Main className={props.className}>
+      <StyledDropdown {...childrenProps} />
+    </Main>
+  );
+}
 
-  const handleChange = () => {
+export function StyledDropdown(props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(props?.list[0] || []);
+
+  const handleOpen = () => {
     if (props?.list.length == 0) return;
     setIsOpen(!isOpen);
   };
 
-  const handleClicked = (value) => {
-    setHandleOption(value);
+  const handleSelect = (value) => {
+    setSelectedOption(value);
     setIsOpen(false);
     props.onSelect(value);
   };
 
   return (
-    <Main>
-      <DropDownContainer>
-        <DropDownHeader onClick={handleChange} fontSize={props.fontSize}>
-          {handleOption.name}
-          {props?.list.length == 0 && (
-            <Information>
-              <p>Loading...</p>
-            </Information>
-          )}
-          {props?.list.length !== 0 && <IoIosArrowDown />}
-        </DropDownHeader>
-
-        {isOpen && (
-          <DropDownListContainer>
-            {props?.list.length > 0 ? (
-              <DropDownList>
-                {props?.list.map((item) => (
-                  <ListItem onClick={() => handleClicked(item)}>
-                    {item.name}
-                  </ListItem>
-                ))}
-              </DropDownList>
-            ) : (
-              'Loading...'
-            )}
-          </DropDownListContainer>
+    <DropDownContainer>
+      <DropDownHeader onClick={handleOpen}>
+        {selectedOption.name}
+        {props?.list.length == 0 && (
+          <Information>
+            <p>Loading...</p>
+          </Information>
         )}
-      </DropDownContainer>
-    </Main>
+        {props?.list.length !== 0 && <IoIosArrowDown />}
+      </DropDownHeader>
+
+      {isOpen && (
+        <DropDownListContainer>
+          {props?.list.length > 0 ? (
+            <DropDownList>
+              {props?.list.map((item) => (
+                <ListItem onClick={() => handleSelect(item)}>
+                  {item.name}
+                </ListItem>
+              ))}
+            </DropDownList>
+          ) : (
+            'Loading...'
+          )}
+        </DropDownListContainer>
+      )}
+    </DropDownContainer>
   );
 }
 
-const Main = styled('div')`
+const Main = styled.div`
   font-family: sans-serif;
 `;
 
-const DropDownContainer = styled('div')``;
+const DropDownContainer = styled.div``;
 
-const DropDownHeader = styled('div')`
+const DropDownHeader = styled.div`
   display: flex;
   padding: 30px;
   font-weight: 700;
-  font-size: ${(props) => props.fontSize || ''};
   color: white;
   cursor: pointer;
 `;
 
-const DropDownListContainer = styled('div')`
+const DropDownListContainer = styled.div`
   margin-left: 32px;
   position: absolute;
 `;
 
-const DropDownList = styled('ul')`
+const DropDownList = styled.ul`
 background: DarkGray;
 list-style: none;
 
@@ -87,7 +93,7 @@ list-style: none;
   }
 `;
 
-const ListItem = styled('li')`
+const ListItem = styled.li`
   color: #fff;
   background: DarkGray;
   padding: 7px;
