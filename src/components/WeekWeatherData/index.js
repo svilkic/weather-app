@@ -5,18 +5,28 @@ import { WeekCard } from './WeekCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCityLatLongImageUrban } from '../../helper/api';
 import { fetchWeather, setImage } from '../../store/slices/weatherSlice';
+import { Dropdown } from '../UI/Dropdown';
+import { enUS, srLatn } from 'date-fns/locale';
+import { useTranslation } from 'react-i18next';
 
-const date = format(new Date(), 'dd MMMM');
+const langMap = {
+  en: enUS,
+  sr: srLatn,
+};
 
 export function WeekWeatherData() {
+  const { i18n } = useTranslation();
   const dispatch = useDispatch();
-
   const { cities, fetching, image, weekForecast } = useSelector(
     (state) => state.weather
   );
 
+  const date = format(new Date('03 03 2022'), 'dd MMMM', {
+    locale: langMap[i18n.language],
+  });
+
   const handleCitySelect = async (e) => {
-    const urbanApi = e?.target?.value || e;
+    const urbanApi = e?.href || e;
     const { lat, lon, image } = await getCityLatLongImageUrban(urbanApi);
     dispatch(setImage(image));
     dispatch(fetchWeather({ lat, lon }));
@@ -32,16 +42,8 @@ export function WeekWeatherData() {
     <Container img={image}>
       <DataSection className='CitySelect'>
         <DropdownBig>
-          <Dropdown list={cities} onSelect={(item) => console.log(item)} />
+          <Dropdown list={cities} onSelect={handleCitySelect} />
         </DropdownBig>
-        {/* <select onChange={handleCitySelect}>
-          {fetching && <option>Loading ...</option>}
-          {cities.map((city) => (
-            <option key={city.name} value={city.href}>
-              {city.name}
-            </option>
-          ))}
-        </select> */}
         <DateElement>{date}</DateElement>
       </DataSection>
       <WeekCards>
@@ -107,7 +109,7 @@ const DataSection = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 2rem;
-  z-index: 2;
+  z-index: 10;
 
   //Mobile
   @media (max-width: 767px) {
