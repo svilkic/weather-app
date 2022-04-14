@@ -17,11 +17,12 @@ const langMap = {
 export function WeekWeatherData() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
+
   const { cities, fetching, image, weekForecast } = useSelector(
     (state) => state.weather
   );
 
-  const date = format(new Date('03 03 2022'), 'dd MMMM', {
+  const date = format(new Date(), 'dd MMMM', {
     locale: langMap[i18n.language],
   });
 
@@ -109,7 +110,7 @@ const DataSection = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 2rem;
-  z-index: 10;
+  z-index: 2;
 
   //Mobile
   @media (max-width: 767px) {

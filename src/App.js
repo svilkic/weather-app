@@ -9,8 +9,8 @@ import i18next from 'i18next';
 import { fetchCities } from './store/slices/weatherSlice';
 
 function App() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleLanguageChange = (lang = 'en') => {
     i18next.changeLanguage(lang.name);
