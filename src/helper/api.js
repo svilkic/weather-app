@@ -21,12 +21,12 @@ export const getWeekForcast = async (lat = 33.44, lon = -94.04) => {
  * @returns object {count : number, cities : array }
  */
 export const getCitySearch = async (search) => {
-  const citySearch = "https://api.teleport.org/api/cities/?search=";
+  const citySearch = 'https://api.teleport.org/api/cities/?search=';
   const api = `${citySearch}${search}`;
   const res = await fetch(api);
   const data = await res.json();
   const count = data.count;
-  const cities = data["_embedded"]["city:search-results"];
+  const cities = data['_embedded']['city:search-results'];
   return { count, cities };
 };
 
@@ -35,10 +35,10 @@ export const getCitySearch = async (search) => {
  * @returns array of object {href:urban_area api, name:area name}
  */
 export const getAllCity = async () => {
-  const api = "https://api.teleport.org/api/urban_areas/";
+  const api = 'https://api.teleport.org/api/urban_areas/';
   const res = await fetch(api);
   const data = await res.json();
-  const cities = data["_links"]["ua:item"];
+  const cities = data['_links']['ua:item'];
   return cities;
 };
 
@@ -50,7 +50,7 @@ export const getAllCity = async () => {
 export const getCityLatLongImageUrban = async (urban_api) => {
   const res = await fetch(urban_api);
   const data = await res.json();
-  const href = data["_links"]["ua:identifying-city"].href;
+  const href = data['_links']['ua:identifying-city'].href;
   const cityObject = await getCityLatLongImage(href);
   return cityObject;
 };
@@ -64,9 +64,9 @@ export const getCityLatLongImage = async (geoname_api) => {
   const res = await fetch(geoname_api);
   const data = await res.json();
   const { latitude, longitude } = data.location.latlon;
-  const urbanArea = data["_links"]["city:urban_area"].href;
+  const urbanArea = data['_links']['city:urban_area'].href;
   const cityImage = await getCityImage(urbanArea);
-  return { lat: latitude, long: longitude, image: cityImage };
+  return { lat: latitude, lon: longitude, image: cityImage };
 };
 
 /**

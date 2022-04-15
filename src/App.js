@@ -1,16 +1,24 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Container } from './components/Container';
 import { Dropdown } from './components/UI/Dropdown';
 import { LANGUAGES } from './constants/language';
 import i18next from 'i18next';
+import { fetchCities } from './store/slices/weatherSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const handleLanguageChange = (lang = 'en') => {
     i18next.changeLanguage(lang.name);
   };
 
-  const { t } = useTranslation();
+  useEffect(() => {
+    dispatch(fetchCities());
+  }, []);
 
   return (
     <ContainerMain>
@@ -31,7 +39,7 @@ const ContainerMain = styled.main`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const Title = styled.div`
