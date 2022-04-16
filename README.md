@@ -1,3 +1,5 @@
+## Hosted at: https://svilkic.github.io/weather-app/
+
 # Modern React Weather App
 
 Simple weather app that displays weather forecast for 7 days for selected city.
