@@ -21,7 +21,7 @@ i18n
       escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
     backend: {
-      loadPath: "/languages/{{lng}}/{{ns}}.json",
+      loadPath: `${process.env.PUBLIC_URL}/languages/{{lng}}/{{ns}}.json`,
     },
     react: { useSuspense: false },
   });

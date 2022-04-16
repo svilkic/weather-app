@@ -1,4 +1,4 @@
-export const weatherIconMap = {
+const weatherIconMap = {
   200: '/addons/icons/climacon-cloud_lightning_sun.svg',
   201: '/addons/icons/climacon-cloud_lightning_sun.svg',
   202: '/addons/icons/climacon-cloud_lightning_sun.svg',
@@ -54,3 +54,7 @@ export const weatherIconMap = {
   803: '/addons/icons/climacon-cloud_sun.svg',
   804: '/addons/icons/climacon-cloud_sun.svg',
 };
+
+const getWeatherIcon = code => `${process.env.PUBLIC_URL}/${weatherIconMap[code]}`;
+
+export { getWeatherIcon };

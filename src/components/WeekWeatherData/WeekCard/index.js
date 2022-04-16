@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { weatherIconMap } from '../../../constants/iconMapping';
+import { getWeatherIcon } from '../../../constants/iconMapping';
 import { toDateTime } from '../../../helper/functions';
 
 export const WeekCard = React.memo(({ symbol, description, temp, day }) => {
@@ -12,7 +12,7 @@ export const WeekCard = React.memo(({ symbol, description, temp, day }) => {
 
   const weekFormated = weekArray[weekIndex].substring(0, 3);
   const tempFormated = parseFloat(temp).toFixed(0).padStart(2, '0') + '°';
-  const icon = weatherIconMap[symbol];
+  const icon = getWeatherIcon(symbol);
 
   return (
     <Card>
