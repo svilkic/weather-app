@@ -13,3 +13,9 @@ Simple weather app that displays weather forecast for 7 days for selected city.
     REACT_APP_WEATHER_API_KEY=
 
 ### 4. `npm start`
+
+## Deploy to Github Pages:
+
+`npm run deploy -- -m "Commit message"`
+
+**Note**: The current code in your local will be deployed, regardless of if the changes are comitted or not.
