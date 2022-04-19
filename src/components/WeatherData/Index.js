@@ -1,23 +1,18 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export function WeatherData(props) {
   return (
     <Container gridArea={props.gridArea}>
-      <Value>
-        <p>{props.value}</p>
-      </Value>
-      <Text>
-        <h5>{props.text}</h5>
-      </Text>
+      <Value>{props.value}</Value>
+      <Text>{props.text}</Text>
     </Container>
   );
 }
 
-
 const Container = styled.div`
-grid-area: ${props => props.gridArea || '' };
-padding:30px;
+  grid-area: ${(props) => props.gridArea || ''};
+  padding: 30px;
 `;
 
 const Value = styled.p`
@@ -27,8 +22,9 @@ const Value = styled.p`
 `;
 
 const Text = styled.h5`
+  font-weight: 100;
   margin-top: 5px;
   font-size: 15px;
   color: var(--color-white);
-  opacity: 0.5;
+  opacity: 0.7;
 `;
