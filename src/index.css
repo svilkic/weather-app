@@ -10,7 +10,7 @@ body {
     var(--background-color-bottom)
   );
   height: 100vh;
-  font-family: 'Trebuchet MS' , sans-serif;
+  font-family: 'Trebuchet MS', sans-serif;
 }
 
 :root {
@@ -23,4 +23,12 @@ body {
   --color-dark: #333;
   --color-medium: rgb(140, 140, 140);
   --color-white: #fefefe;
+}
+
+.sd1 {
+  fill: none;
+  stroke: rgb(184, 221, 179);
+  stroke-width: 15;
+  stroke-linecap: round;
+  opacity: 1 !important;
 }
