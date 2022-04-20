@@ -12,7 +12,7 @@ const initialState = {
   image: '',
   currentForecast: {},
   weekForecast: [],
-  lastUpdate: 0,
+  lastUpdate: new Date(),
 };
 
 //Fetch weather
@@ -36,9 +36,13 @@ export const fetchCities = createAsyncThunk(
 const weatherSlice = createSlice({
   name: 'weather',
   initialState,
+
   reducers: {
     setImage(state, action) {
       state.image = action.payload;
+    },
+    setLastUpdate(state, action) {
+      state.lastUpdate = action.payload;
     },
   },
 
@@ -51,6 +55,7 @@ const weatherSlice = createSlice({
       state.fetching = true;
     });
     builder.addCase(fetchWeather.fulfilled, (state, action) => {
+      state.lastUpdate = new Date();
       state.currentForecast = action.payload.currentForecast;
       state.weekForecast = action.payload.weekForecast;
       state.fetching = false;
@@ -58,5 +63,5 @@ const weatherSlice = createSlice({
   },
 });
 
-export const { setImage } = weatherSlice.actions;
+export const { setImage, setLastUpdate } = weatherSlice.actions;
 export const weatherReducer = weatherSlice.reducer;
