@@ -9,10 +9,10 @@ export function AdditionalWeatherData(props) {
   const { currentForecast } = useSelector((state) => state.weather);
   const { dew_point, humidity, visibility, uvi } = currentForecast;
 
-  const humidityFormatted = `${humidity}%`;
-  const dewPointFormatted = `${Math.round(dew_point)}°`;
-  const uvIndexFormatted = `${Math.round(uvi)}/10`;
-  const visibilityFormatted = `${(visibility / 1000).toFixed(1)}km`;
+  const humidityFormatted = `${humidity || 0}%`;
+  const dewPointFormatted = `${Math.round(dew_point || 0)}°`;
+  const uvIndexFormatted = `${Math.round(uvi || 0)}/10`;
+  const visibilityFormatted = `${((visibility || 0) / 1000).toFixed(1)} km`;
 
   return (
     <Container>
@@ -25,7 +25,7 @@ export function AdditionalWeatherData(props) {
         <WeatherData
           value={uvIndexFormatted}
           text={t('UvIndex')}
-          gridArea={'2 / 1 / 3 / 7'}
+          gridArea={'2 / 1 / 3 / 2'}
         />
         <WeatherData
           value={dewPointFormatted}
@@ -60,9 +60,10 @@ const Container = styled.div`
 const DataGrid = styled.div`
   background: rgb(64, 101, 35);
   background: linear-gradient(
-    60deg,
-    rgba(64, 101, 35, 1) 0%,
-    rgba(84, 152, 134, 1) 100%
+    45deg,
+    rgb(34 119 68) 0%,
+    rgb(51 153 120) 50%,
+    rgb(76 170 137) 73%
   );
   display: grid;
   height: 100%;
@@ -71,7 +72,6 @@ const DataGrid = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-area: 4 / 1 / 6 / 3;
-
   //Tablet
   @media (max-width: 1024px) {
     display: flex;
