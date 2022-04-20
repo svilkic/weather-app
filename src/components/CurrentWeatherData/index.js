@@ -1,31 +1,38 @@
 import React, { useEffect, useState } from 'react';
+// Libs
 import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
-import { getWeatherIcon } from '../../constants/iconMapping';
-import { setLastUpdate } from '../../store/slices/weatherSlice';
 import { formatDistanceToNow } from 'date-fns';
+// Constants
+import { getWeatherIcon } from '../../constants/iconMapping';
 import { langMap } from '../../constants/language';
-
+// Redux
+import { fetchWeather, setLastUpdate } from '../../store/slices/weatherSlice';
+// Icons
 import { MdRefresh } from 'react-icons/md';
+// SVG
+import { Wave1, Wave2 } from './Waves';
+// Styles
 import styled from 'styled-components';
 
 export function CurrentWeatherData() {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const { lastUpdate, currentForecast } = useSelector((state) => state.weather);
-  const [updateDate, setUpdateDate] = useState(
-    formatDistanceToNow(new Date(), {
-      includeSeconds: true,
-      locale: langMap[i18n.language],
-    })
+  const { lastUpdate, currentForecast, lat, lon } = useSelector(
+    (state) => state.weather
   );
+  const defaultTime = formatDistanceToNow(new Date(), {
+    includeSeconds: true,
+    locale: langMap[i18n.language],
+  });
+  const [updateDate, setUpdateDate] = useState(defaultTime);
 
   const [fetching, setFetching] = useState(false);
 
   useEffect(() => {
     const loop = setInterval(() => {
       setUpdateDate(
-        formatDistanceToNow(lastUpdate, {
+        formatDistanceToNow(new Date(JSON.parse(lastUpdate)), {
           includeSeconds: true,
           locale: langMap[i18n.language],
         })
@@ -42,10 +49,12 @@ export function CurrentWeatherData() {
       refreshBtn.classList.toggle('rotate');
       handleReset(refreshBtn);
       setFetching(true);
-      const currentTime = new Date();
+      const currentTime = JSON.stringify(new Date());
       dispatch(setLastUpdate(currentTime));
+      dispatch(fetchWeather({ lat, lon }));
     }
   };
+
   const handleReset = (refreshBtn) => {
     setTimeout(() => {
       refreshBtn.classList.toggle('rotate');
@@ -55,6 +64,9 @@ export function CurrentWeatherData() {
 
   const currentTemperature = Math.round(currentForecast.temp || 0);
   const symbol = currentForecast.weather ? currentForecast.weather[0].id : '';
+  const description = currentForecast.weather
+    ? currentForecast.weather[0].description
+    : 'Loading';
   const icon = getWeatherIcon(symbol);
 
   const weatherList = t('weather', { returnObjects: true });
@@ -71,7 +83,7 @@ export function CurrentWeatherData() {
           <Value>{currentTemperature}°</Value>
           <Text>{weatherState}</Text>
         </Temperature>
-        <Icon src={icon}></Icon>
+        <Icon src={icon} alt={description}></Icon>
       </CurrentData>
       <RefreshContainer>
         <RefreshButton onClick={handleRefresh}>
@@ -86,6 +98,8 @@ export function CurrentWeatherData() {
           </Info>
         </RefreshButton>
       </RefreshContainer>
+      <Wave1 />
+      <Wave2 />
     </Container>
   );
 }

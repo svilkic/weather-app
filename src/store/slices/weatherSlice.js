@@ -6,13 +6,15 @@ import {
 } from '../../helper/api';
 
 const initialState = {
+  lat: 0,
+  lon: 0,
   fetching: true,
   city: 0,
   cities: [],
   image: '',
   currentForecast: {},
   weekForecast: [],
-  lastUpdate: new Date(),
+  lastUpdate: JSON.stringify(new Date()),
 };
 
 //Fetch weather
@@ -20,7 +22,7 @@ export const fetchWeather = createAsyncThunk(
   'weather/fetchWeather',
   async ({ lat, lon }) => {
     const { current, daily } = await getWeekForcast(lat, lon);
-    return { currentForecast: current, weekForecast: daily };
+    return { currentForecast: current, weekForecast: daily, lat, lon };
   }
 );
 
@@ -55,10 +57,12 @@ const weatherSlice = createSlice({
       state.fetching = true;
     });
     builder.addCase(fetchWeather.fulfilled, (state, action) => {
-      state.lastUpdate = new Date();
+      state.lastUpdate = JSON.stringify(new Date());
       state.currentForecast = action.payload.currentForecast;
       state.weekForecast = action.payload.weekForecast;
       state.fetching = false;
+      state.lat = action.payload.lat;
+      state.lon = action.payload.lon;
     });
   },
 });
