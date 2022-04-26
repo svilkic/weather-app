@@ -27,23 +27,16 @@ export const WeekCard = React.memo(({ symbol, description, temp, day }) => {
 
 const Card = styled.div`
   position: relative;
-  border: 1px solid #ececec1c;
-  /* Glass effect*/
-  background: rgba(125, 125, 125, 0.28);
-  backdrop-filter: blur(17.7px);
+  border-right: 1px solid transparent;
   cursor: default;
 
   &:hover {
     z-index: 2;
     border: none;
-    height: 110%;
-    top: -10%;
+    height: 113%;
+    top: -13%;
     background: rgba(100, 100, 100, 0.15);
-    filter: brightness(1.1) saturate(1.1);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
-    #temp {
-      font-size: 1.9rem;
-    }
   }
 `;
 
@@ -55,6 +48,18 @@ const DataWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  /* Glass effect*/
+  background: rgba(100, 100, 100, 0.28);
+  backdrop-filter: blur(10.7px);
+
+  &:hover {
+    z-index: 2;
+    background: rgba(100, 100, 100, 0.25);
+    filter: brightness(1.1) saturate(1.1);
+    #temp {
+      font-size: 1.9rem;
+    }
+  }
 
   //Mobile
   @media (max-width: 767px) {
