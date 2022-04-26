@@ -65,6 +65,7 @@ export function WeekWeatherData() {
 }
 
 const Container = styled.div`
+  overflow: hidden;
   background-color: #38663a;
   grid-area: 1 / 3 / 6 / 7;
   justify-content: space-between;
@@ -132,8 +133,11 @@ const WeekCards = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-auto-flow: row;
-  padding: 0 1px;
+  justify-content: space-evenly;
 
+  & > div:nth-child(7) {
+    border-right: none;
+  }
   //Mobile
   @media (max-width: 767px) {
     height: 100%;
