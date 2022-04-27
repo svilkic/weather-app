@@ -8,6 +8,7 @@ import {
 const initialState = {
   lat: 0,
   lon: 0,
+  fetchingImage: true,
   fetching: true,
   city: 0,
   cities: [],
@@ -40,6 +41,9 @@ const weatherSlice = createSlice({
   initialState,
 
   reducers: {
+    setFetchingImage(state, action) {
+      state.fetchingImage = action.payload;
+    },
     setImage(state, action) {
       state.image = action.payload;
     },
@@ -49,11 +53,15 @@ const weatherSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(fetchCities.pending, (state, action) => {
+      state.fetching = true;
+    });
     builder.addCase(fetchCities.fulfilled, (state, action) => {
       state.cities = action.payload.cities;
       state.fetching = false;
+      state.fetchingImage = false;
     });
-    builder.addCase(fetchCities.pending, (state, action) => {
+    builder.addCase(fetchWeather.pending, (state, action) => {
       state.fetching = true;
     });
     builder.addCase(fetchWeather.fulfilled, (state, action) => {
@@ -67,5 +75,6 @@ const weatherSlice = createSlice({
   },
 });
 
-export const { setImage, setLastUpdate } = weatherSlice.actions;
+export const { setImage, setLastUpdate, setFetchingImage } =
+  weatherSlice.actions;
 export const weatherReducer = weatherSlice.reducer;
