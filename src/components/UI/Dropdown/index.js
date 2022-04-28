@@ -30,13 +30,15 @@ export function StyledDropdown(props) {
     setSelectedOption(props.list[0]);
   }, [props.list]);
 
+  const getIcon = (item) => {
+    return item.icon ? <Icon src={item.icon}></Icon> : item.name;
+  };
+
   return (
     <DropDownContainer>
       <DropDownHeader onClick={handleOpen}>
         {selectedOption?.icon ? (
-          <Icon
-            src={selectedOption.icon ? selectedOption.icon : undefined}
-          ></Icon>
+          <Icon src={selectedOption.icon}></Icon>
         ) : (
           selectedOption?.name
         )}
@@ -54,11 +56,7 @@ export function StyledDropdown(props) {
                   {(selectedOption?.id !== item.id ||
                     selectedOption?.name !== item.name) && (
                     <ListItem onClick={() => handleSelect(item)}>
-                      {item.icon ? (
-                        <Icon src={item.icon ? item.icon : undefined}></Icon>
-                      ) : (
-                        item.name
-                      )}
+                      {getIcon(item)}
                     </ListItem>
                   )}
                 </React.Fragment>

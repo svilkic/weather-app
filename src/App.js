@@ -65,7 +65,7 @@ const DropdownSmall = styled(Dropdown)`
   position: relative;
   top: 3px;
 
-  @media (max-width: 1287px) {
+  @media (max-width: 1024px) {
   }
   display: none;
 

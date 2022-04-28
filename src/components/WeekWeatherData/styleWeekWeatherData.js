@@ -89,7 +89,4 @@ export const DropdownSmall = styled(Dropdown)`
   @media (max-width: 1024px) {
     display: none;
   }
-
-  @media (max-width: 767px) {
-  }
 `;
