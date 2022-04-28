@@ -22,11 +22,11 @@ function App() {
 
   return (
     <ContainerMain>
-      <DropdownSmall>
-        <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
-      </DropdownSmall>
       <Title>
         <h4>{t('title')}</h4>
+        <DropdownSmall>
+          <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
+        </DropdownSmall>
       </Title>
       <Container />
     </ContainerMain>
@@ -44,6 +44,8 @@ const ContainerMain = styled.main`
 
 const Title = styled.div`
   width: 70%;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 1rem;
   color: var(--color-white);
 
@@ -60,7 +62,20 @@ const Title = styled.div`
 `;
 
 const DropdownSmall = styled(Dropdown)`
-  font-size: 25px;
+  position: relative;
+  top: 3px;
+
+  @media (max-width: 1287px) {
+  }
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block;
+    top: 9px;
+    right: 5px;
+
+    z-index: 10;
+  }
 `;
 
 export default App;

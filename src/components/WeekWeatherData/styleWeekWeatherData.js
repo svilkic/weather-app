@@ -80,3 +80,16 @@ export const WeekCards = styled.div`
 export const DropdownBig = styled(Dropdown)`
   font-size: 50px;
 `;
+
+export const DropdownSmall = styled(Dropdown)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+  }
+`;
