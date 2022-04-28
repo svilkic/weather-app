@@ -125,6 +125,7 @@ export const Info = styled.span`
   font-weight: inherit;
   font-size: 15px;
   color: white;
+  text-align: left;
   letter-spacing: 0.2;
   margin-left: 0.5rem;
   strong {

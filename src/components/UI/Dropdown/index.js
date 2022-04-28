@@ -13,7 +13,7 @@ export function Dropdown(props) {
 
 export function StyledDropdown(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState([]);
+  const [selectedOption, setSelectedOption] = useState({ id: '' });
 
   const handleOpen = () => {
     if (props?.list.length == 0) return;
@@ -33,8 +33,15 @@ export function StyledDropdown(props) {
   return (
     <DropDownContainer>
       <DropDownHeader onClick={handleOpen}>
-        {selectedOption?.name}
+        {selectedOption?.icon ? (
+          <Icon
+            src={selectedOption.icon ? selectedOption.icon : undefined}
+          ></Icon>
+        ) : (
+          selectedOption?.name
+        )}
         {props?.list.length == 0 && <Information>Loading...</Information>}
+
         {props?.list.length !== 0 && <IoIosArrowDown />}
       </DropDownHeader>
 
@@ -43,9 +50,18 @@ export function StyledDropdown(props) {
           {props?.list.length > 0 ? (
             <DropDownList>
               {props?.list.map((item) => (
-                <ListItem onClick={() => handleSelect(item)}>
-                  {item.name}
-                </ListItem>
+                <React.Fragment>
+                  {(selectedOption?.id !== item.id ||
+                    selectedOption?.name !== item.name) && (
+                    <ListItem onClick={() => handleSelect(item)}>
+                      {item.icon ? (
+                        <Icon src={item.icon ? item.icon : undefined}></Icon>
+                      ) : (
+                        item.name
+                      )}
+                    </ListItem>
+                  )}
+                </React.Fragment>
               ))}
             </DropDownList>
           ) : (
@@ -65,11 +81,13 @@ const DropDownContainer = styled.div``;
 
 const DropDownHeader = styled.div`
   display: flex;
+  align-items: center;
   font-weight: 700;
   color: white;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  margin-left: 5px;
+  text-align: center;
 `;
 
 const DropDownListContainer = styled.div`
@@ -80,6 +98,7 @@ const DropDownListContainer = styled.div`
 const DropDownList = styled.ul`
 background: DarkGray;
 list-style: none;
+margin-top:7px;
 
   max-height:200px;  
   overflow-x:hidden;
@@ -91,14 +110,19 @@ list-style: none;
    
     cursor:pointer;
   }
+
 `;
 
 const ListItem = styled.li`
   color: #fff;
-  background: DarkGray;
-  padding: 7px;
+  background: Gray;
+  padding: 5px;
   position: relative;
   text-decoration: none;
+`;
+
+const Icon = styled.img`
+  width: 33px;
 `;
 
 const Information = styled.p`

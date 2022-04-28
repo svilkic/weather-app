@@ -3,6 +3,9 @@ import { format } from 'date-fns';
 import { WeekCard } from './WeekCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCityLatLongImageUrban } from '../../helper/api';
+import { LANGUAGES } from '../../constants/language';
+import i18next from 'i18next';
+
 import {
   fetchWeather,
   setFetchingImage,
@@ -19,6 +22,7 @@ import {
   DateElement,
   GradiantBackdrop,
   WeekCards,
+  DropdownSmall,
 } from './styleWeekWeatherData';
 
 const langMap = {
@@ -36,6 +40,10 @@ export function WeekWeatherData() {
   const date = format(new Date(), 'dd MMMM', {
     locale: langMap[i18n.language],
   });
+
+  const handleLanguageChange = (lang = 'en') => {
+    i18next.changeLanguage(lang.name);
+  };
 
   const handleCitySelect = async (e) => {
     const urbanApi = e?.href || e;
@@ -59,6 +67,9 @@ export function WeekWeatherData() {
         <DropdownBig>
           <Dropdown list={cities} onSelect={handleCitySelect} />
         </DropdownBig>
+        <DropdownSmall>
+          <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
+        </DropdownSmall>
         <DateElement>{date}</DateElement>
       </DataSection>
       <WeekCards>
