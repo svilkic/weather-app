@@ -30,16 +30,14 @@ export function StyledDropdown(props) {
     setSelectedOption(props.list[0]);
   }, [props.list]);
 
+  const getIcon = (item) => {
+    return item?.icon ? <Icon src={item.icon}></Icon> : item?.name;
+  };
+
   return (
     <DropDownContainer>
       <DropDownHeader onClick={handleOpen}>
-        {selectedOption?.icon ? (
-          <Icon
-            src={selectedOption.icon ? selectedOption.icon : undefined}
-          ></Icon>
-        ) : (
-          selectedOption?.name
-        )}
+        {getIcon(selectedOption)}
         {props?.list.length == 0 && <Information>Loading...</Information>}
 
         {props?.list.length !== 0 && <IoIosArrowDown />}
@@ -54,11 +52,7 @@ export function StyledDropdown(props) {
                   {(selectedOption?.id !== item.id ||
                     selectedOption?.name !== item.name) && (
                     <ListItem onClick={() => handleSelect(item)}>
-                      {item.icon ? (
-                        <Icon src={item.icon ? item.icon : undefined}></Icon>
-                      ) : (
-                        item.name
-                      )}
+                      {getIcon(item)}
                     </ListItem>
                   )}
                 </React.Fragment>
@@ -99,7 +93,6 @@ const DropDownList = styled.ul`
 background: DarkGray;
 list-style: none;
 margin-top:7px;
-
   max-height:200px;  
   overflow-x:hidden;
   overflow-y:auto
@@ -110,7 +103,6 @@ margin-top:7px;
    
     cursor:pointer;
   }
-
 `;
 
 const ListItem = styled.li`

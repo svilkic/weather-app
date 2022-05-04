@@ -64,16 +64,12 @@ const Title = styled.div`
 const DropdownSmall = styled(Dropdown)`
   position: relative;
   top: 3px;
-
-  @media (max-width: 1287px) {
-  }
   display: none;
 
   @media (max-width: 1024px) {
     display: block;
     top: 9px;
     right: 5px;
-
     z-index: 10;
   }
 `;
