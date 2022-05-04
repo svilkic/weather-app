@@ -24,6 +24,7 @@ import {
   RefreshButton,
   Info,
 } from './styleCurrentWeatherData';
+import { TemperatureNumber } from './TemperatureNumber';
 
 export function CurrentWeatherData() {
   const { t, i18n } = useTranslation();
@@ -90,7 +91,7 @@ export function CurrentWeatherData() {
     <Container>
       <CurrentData>
         <Temperature>
-          <Value>{currentTemperature}°</Value>
+          <TemperatureNumber value={currentTemperature} />
           <Text>{weatherState}</Text>
         </Temperature>
         <Icon src={icon} alt={description}></Icon>
