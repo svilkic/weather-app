@@ -36,7 +36,11 @@ export function StyledDropdown(props) {
   }, [props.list]);
 
   const getIcon = (item) => {
-    return item?.icon ? <Icon src={item.icon}></Icon> : item?.name;
+    return item?.icon ? (
+      <Icon src={`${process.env.PUBLIC_URL}/` + item.icon} />
+    ) : (
+      item?.name
+    );
   };
 
   return (
