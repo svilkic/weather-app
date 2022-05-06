@@ -28,7 +28,11 @@ export function StyledDropdown(props) {
   };
 
   useEffect(() => {
-    setSelectedOption(props.list[0]);
+    if (props.defaultSelected) {
+      setSelectedOption(props.defaultSelected);
+    } else {
+      setSelectedOption(props.list[0]);
+    }
   }, [props.list]);
 
   const getIcon = (item) => {
@@ -38,14 +42,14 @@ export function StyledDropdown(props) {
   return (
     <DropDownContainer>
       <DropDownHeader onClick={handleOpen}>
-        {getIcon(selectedOption)}
+        {listPopulated && getIcon(selectedOption)}
         {!listPopulated && <Information>Loading...</Information>}
 
         {listPopulated && <StyledArrowDown rotate={isOpen} />}
       </DropDownHeader>
 
       <DropDownListContainer isOpen={isOpen}>
-        {listPopulated ? (
+        {listPopulated && (
           <DropDownList>
             {props?.list.map((item) => (
               <React.Fragment key={item.name}>
@@ -58,8 +62,6 @@ export function StyledDropdown(props) {
               </React.Fragment>
             ))}
           </DropDownList>
-        ) : (
-          <Information>Loading...</Information>
         )}
       </DropDownListContainer>
     </DropDownContainer>

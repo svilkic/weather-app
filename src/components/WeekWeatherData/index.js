@@ -45,8 +45,9 @@ export function WeekWeatherData() {
     i18next.changeLanguage(lang.name);
   };
 
-  const handleCitySelect = async (e) => {
-    const urbanApi = e?.href || e;
+  const handleCitySelect = async (item) => {
+    localStorage.setItem('selectedCity', JSON.stringify(item));
+    const urbanApi = item?.href || item;
     dispatch(setFetchingImage(true));
     const { lat, lon, image } = await getCityLatLongImageUrban(urbanApi);
     dispatch(setImage(image));
@@ -54,9 +55,16 @@ export function WeekWeatherData() {
     dispatch(fetchWeather({ lat, lon }));
   };
 
+  const selectedCity = JSON.parse(localStorage.getItem('selectedCity'));
+
   useEffect(() => {
     if (cities.length > 0) {
-      handleCitySelect(cities[0].href);
+      const item = selectedCity;
+      if (item) {
+        handleCitySelect(item);
+      } else {
+        handleCitySelect(cities[0]);
+      }
     }
   }, [cities]);
 
@@ -65,7 +73,11 @@ export function WeekWeatherData() {
       <ImageBackground fetching={fetchingImage} url={image} />
       <DataSection className='CitySelect'>
         <DropdownBig>
-          <Dropdown list={cities} onSelect={handleCitySelect} />
+          <Dropdown
+            list={cities}
+            onSelect={handleCitySelect}
+            defaultSelected={selectedCity}
+          />
         </DropdownBig>
         <DropdownSmall>
           <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
