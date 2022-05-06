@@ -43,7 +43,7 @@ export const DataSection = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 2rem;
-  z-index: 2;
+  z-index: 3;
 
   //Mobile
   @media (max-width: 767px) {
