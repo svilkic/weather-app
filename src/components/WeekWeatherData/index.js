@@ -77,6 +77,7 @@ export function WeekWeatherData() {
             list={cities}
             onSelect={handleCitySelect}
             defaultSelected={selectedCity}
+            searchable
           />
         </DropdownBig>
         <DropdownSmall>

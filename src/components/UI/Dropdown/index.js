@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 
@@ -12,12 +12,21 @@ export function Dropdown(props) {
 }
 
 export function StyledDropdown(props) {
+  const filterRef = useRef();
+  const inputRef = useRef();
+  const [inputWidth, setInputWidth] = useState('300px');
+  const [filter, setFilter] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState({ id: '' });
+  const [selectedOption, setSelectedOption] = useState({ id: '', name: '' });
   const listPopulated = props?.list.length > 0;
+
+  const handleFilter = (e) => {
+    setFilter(e.target.value);
+  };
 
   const handleOpen = () => {
     if (!listPopulated) return;
+    if (props.searchable && !isOpen) inputRef?.current.focus();
     setIsOpen(!isOpen);
   };
 
@@ -25,6 +34,7 @@ export function StyledDropdown(props) {
     setSelectedOption(value);
     setIsOpen(false);
     props.onSelect(value);
+    setFilter('');
   };
 
   useEffect(() => {
@@ -35,6 +45,14 @@ export function StyledDropdown(props) {
     }
   }, [props.list]);
 
+  useEffect(() => {
+    var length = '300px';
+    if (filter.length > 0) length = filter.length;
+    else if (selectedOption?.name) length = selectedOption?.name.length;
+
+    setInputWidth(length + 1);
+  }, [selectedOption, filter]);
+
   const getIcon = (item) => {
     return item?.icon ? (
       <Icon src={`${process.env.PUBLIC_URL}/` + item.icon} />
@@ -43,11 +61,42 @@ export function StyledDropdown(props) {
     );
   };
 
+  useEffect(() => {
+    // Close dropdown on click outside
+    const dropdownListener = (event) => {
+      if (!filterRef.current || filterRef.current.contains(event.target)) {
+        return;
+      }
+      setIsOpen(false);
+    };
+
+    document.addEventListener('mousedown', dropdownListener);
+    document.addEventListener('touchstart', dropdownListener);
+
+    return () => {
+      document.removeEventListener('mousedown', dropdownListener);
+      document.removeEventListener('touchstart', dropdownListener);
+    };
+  }, [filterRef]);
+
   return (
-    <DropDownContainer>
+    <DropDownContainer ref={filterRef}>
       <DropDownHeader onClick={handleOpen}>
-        {listPopulated && getIcon(selectedOption)}
         {!listPopulated && <Information>Loading...</Information>}
+
+        {listPopulated ? (
+          props.searchable ? (
+            <SearchFilter
+              ref={inputRef}
+              value={filter}
+              onChange={handleFilter}
+              placeholder={selectedOption?.name}
+              width={inputWidth + 'ch'}
+            />
+          ) : (
+            getIcon(selectedOption)
+          )
+        ) : undefined}
 
         {listPopulated && <StyledArrowDown rotate={isOpen} />}
       </DropDownHeader>
@@ -55,16 +104,20 @@ export function StyledDropdown(props) {
       <DropDownListContainer isOpen={isOpen}>
         {listPopulated && (
           <DropDownList>
-            {props?.list.map((item) => (
-              <React.Fragment key={item.name}>
-                {(selectedOption?.id !== item.id ||
-                  selectedOption?.name !== item.name) && (
-                  <ListItem onClick={() => handleSelect(item)}>
-                    {getIcon(item)}
-                  </ListItem>
-                )}
-              </React.Fragment>
-            ))}
+            {props?.list
+              .filter((item) => item.name.includes(filter))
+              .map((item) => (
+                <React.Fragment key={item.name}>
+                  {(selectedOption?.id !== item.id ||
+                    selectedOption?.name !== item.name) && (
+                    <ListItem onClick={() => handleSelect(item)}>
+                      {getIcon(item)}
+                    </ListItem>
+                  )}
+                </React.Fragment>
+              ))}
+            {props?.list.filter((item) => item.name.includes(filter)).length ===
+              0 && <ListItem>Couldn't find any results</ListItem>}
           </DropDownList>
         )}
       </DropDownListContainer>
@@ -76,17 +129,45 @@ const Main = styled.div`
   font-family: sans-serif;
 `;
 
-const DropDownContainer = styled.div``;
+const DropDownContainer = styled.div`
+  ${'' /* max-width: 300px; */}
+`;
 
 const DropDownHeader = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
   color: white;
-  cursor: pointer;
   display: flex;
-  margin-left: 5px;
   text-align: center;
+  cursor: pointer;
+`;
+
+const SearchFilter = styled.input`
+  max-width: 300px;
+  width: ${(props) => props.width};
+  color: var(--color-white);
+  font-weight: 700;
+  background-color: transparent;
+  font-size: 2rem;
+  border: none;
+  transition: border-bottom 300ms;
+  border-bottom: 1px solid transparent;
+  &::placeholder {
+    color: var(--color-white);
+  }
+  &:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid var(--color-white);
+    outline: none;
+  }
+`;
+
+const StyledArrowDown = styled(IoIosArrowDown)`
+  transition: all 300ms;
+  transform: rotate(${(props) => (props.rotate ? '180deg' : '360deg')});
 `;
 
 const DropDownListContainer = styled.div`
@@ -157,9 +238,4 @@ const Icon = styled.img`
 const Information = styled.p`
   font-size: 30px;
   color: var(--color-white);
-`;
-
-const StyledArrowDown = styled(IoIosArrowDown)`
-  transition: all 300ms;
-  transform: rotate(${(props) => (props.rotate ? '180deg' : '360deg')});
 `;
