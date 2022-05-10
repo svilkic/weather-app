@@ -22,32 +22,54 @@ function App() {
 
   return (
     <ContainerMain>
-      <Title>
-        <h4>{t('title')}</h4>
-        <DropdownSmall>
-          <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
-        </DropdownSmall>
-      </Title>
-      <Container />
+      <ContentContainer>
+        <Title>
+          <h4>{t('title')}</h4>
+          <DropdownSmall>
+            <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
+          </DropdownSmall>
+        </Title>
+        <Container />
+      </ContentContainer>
     </ContainerMain>
   );
 }
 
 const ContainerMain = styled.main`
+  width: 100vw;
+  min-height: 100vh;
+`;
+const ContentContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  min-height: 100vh;
+  width: 80%;
+  margin: auto;
+  min-width: 70%;
+  max-width: 95vw;
+  min-height: inherit;
+  max-height: 100vh;
+  padding: 1rem;
+
+  //Tablet and below
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 100vw;
+    max-height: initial;
+  }
 `;
 
 const Title = styled.div`
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
   color: var(--color-white);
+
+  h4 {
+    text-align: left;
+  }
 
   //Tablet
   @media (min-width: 768px) and (max-width: 1024px) {
