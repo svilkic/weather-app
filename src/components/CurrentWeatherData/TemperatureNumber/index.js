@@ -8,15 +8,17 @@ export function TemperatureNumber({ value }) {
 
   return (
     <TemperatureWrapper>
-      <SwitchTransition>
-        <CSSTransition
-          key={firstNumber}
-          classNames='numberChange'
-          timeout={200}
-        >
-          <Value>{firstNumber}</Value>
-        </CSSTransition>
-      </SwitchTransition>
+      {firstNumber !== 0 && (
+        <SwitchTransition>
+          <CSSTransition
+            key={firstNumber}
+            classNames='numberChange'
+            timeout={200}
+          >
+            <Value>{firstNumber}</Value>
+          </CSSTransition>
+        </SwitchTransition>
+      )}
       <SwitchTransition>
         <CSSTransition
           key={secondNumber}
