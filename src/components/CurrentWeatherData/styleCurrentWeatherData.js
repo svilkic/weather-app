@@ -69,6 +69,11 @@ export const Temperature = styled.div`
   justify-content: center;
   flex-direction: column;
   color: white;
+  margin-top: 10px;
+
+  @media (max-width: 1024px) {
+    margin-top: 0px;
+  }
 `;
 
 export const Value = styled.h5`
