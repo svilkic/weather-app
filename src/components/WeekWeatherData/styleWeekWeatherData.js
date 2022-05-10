@@ -20,7 +20,6 @@ export const Container = styled.div`
   //Mobile
   @media (max-width: 767px) {
     /* CSS */
-    height: 95vh;
     grid-template-rows: repeat(1, 1fr);
   }
 `;

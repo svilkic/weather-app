@@ -9,8 +9,15 @@ body {
     var(--background-color-top),
     var(--background-color-bottom)
   );
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Trebuchet MS', sans-serif;
+}
+/* Mobile */
+@media only screen and (max-width: 767px) {
+  body {
+    padding: 1rem 0;
+    height: initial;
+  }
 }
 
 :root {
