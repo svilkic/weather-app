@@ -12,7 +12,6 @@ export function WeatherData(props) {
 
 const Container = styled.div`
   grid-area: ${(props) => props.gridArea || ''};
-  padding: 30px;
 `;
 
 const Value = styled.p`
