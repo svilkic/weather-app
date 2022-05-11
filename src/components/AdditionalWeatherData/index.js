@@ -72,8 +72,8 @@ const DataGrid = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-area: 4 / 1 / 6 / 3;
-  padding: 2rem;
-  gap: 2rem;
+  padding: 2.5rem;
+  gap: 3.5rem;
   //Tablet
   @media (max-width: 1024px) {
     display: flex;
