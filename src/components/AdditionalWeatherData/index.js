@@ -72,11 +72,14 @@ const DataGrid = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-area: 4 / 1 / 6 / 3;
+  padding: 2rem;
+  gap: 2rem;
   //Tablet
   @media (max-width: 1024px) {
     display: flex;
     justify-content: space-around;
     align-text: center;
+    align-items: center;
   }
 
   //Mobile
