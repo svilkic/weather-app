@@ -29,7 +29,7 @@ export const Container = styled.div`
 
   //Mobile
   @media (max-width: 767px) {
-    padding: 1.5rem;
+    padding: 15px 10px;
   }
 `;
 
@@ -44,6 +44,10 @@ export const CurrentData = styled.div`
   @media (max-width: 1024px) {
     align-items: center;
     grid-area: 1 / 1 / 4 / 2;
+  }
+
+  @media (max-width: 767px) {
+    padding: 0px 20px 45px;
   }
 `;
 
