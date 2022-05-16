@@ -47,10 +47,11 @@ const ContentContainer = styled.section`
   width: 80%;
   margin: auto;
   min-width: 70%;
-  max-width: 95vw;
+  max-width: 60vw;
   min-height: inherit;
   max-height: 100vh;
   padding: 1rem;
+  aspect-ratio: 16/10;
 
   //Tablet and below
   @media (max-width: 1024px) {
