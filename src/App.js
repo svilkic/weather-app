@@ -51,7 +51,11 @@ const ContentContainer = styled.section`
   min-height: inherit;
   max-height: 100vh;
   padding: 1rem;
-  aspect-ratio: 16/10;
+
+  //Desktop
+  @media (min-width: 1025px) {
+    aspect-ratio: 16/10;
+  }
 
   //Tablet and below
   @media (max-width: 1024px) {
