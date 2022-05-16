@@ -89,6 +89,7 @@ export function WeekWeatherData() {
         {weekForecast?.map((forcast, i) =>
           i > 0 ? (
             <WeekCard
+              key={i}
               symbol={forcast.weather[0].id}
               description={forcast.weather[0].description}
               temp={forcast.temp.day}

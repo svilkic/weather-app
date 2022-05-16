@@ -74,6 +74,7 @@ export const WeekCards = styled.div`
     height: 100%;
     grid-template-columns: repeat(1, 1fr);
     margin-bottom: 20px;
+    gap: 1px;
   }
 `;
 
