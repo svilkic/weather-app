@@ -115,7 +115,7 @@ export function StyledDropdown(props) {
           )
         ) : undefined}
 
-        {listPopulated && <StyledArrowDown rotate={isOpen.toString()} />}
+        {listPopulated && <StyledArrowDown rotate={isOpen} />}
       </DropDownHeader>
 
       <DropDownListContainer isOpen={isOpen}>
