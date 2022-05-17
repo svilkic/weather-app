@@ -7,14 +7,12 @@ import { Dropdown } from './components/UI/Dropdown';
 import { LANGUAGES } from './constants/language';
 import i18next from 'i18next';
 import { fetchCities } from './store/slices/weatherSlice';
+import { getLocalLanguage, handleLanguageChange } from './helper/functions';
 
 function App() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  const handleLanguageChange = (lang = 'en') => {
-    i18next.changeLanguage(lang.name);
-  };
+  const localStoreLanguage = getLocalLanguage();
 
   useEffect(() => {
     dispatch(fetchCities());
@@ -26,7 +24,11 @@ function App() {
         <Title>
           <h4>{t('title')}</h4>
           <DropdownSmall>
-            <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
+            <Dropdown
+              onSelect={handleLanguageChange}
+              list={LANGUAGES}
+              defaultSelected={localStoreLanguage}
+            />
           </DropdownSmall>
         </Title>
         <Container />
