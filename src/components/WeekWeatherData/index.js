@@ -6,6 +6,7 @@ import { getCityLatLongImageUrban } from '../../helper/api';
 import { LANGUAGES } from '../../constants/language';
 import i18next from 'i18next';
 
+import { handleLanguageChange } from '../../helper/functions';
 import {
   fetchWeather,
   setFetchingImage,
@@ -33,6 +34,8 @@ const langMap = {
 export function WeekWeatherData() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
+  const localStoreLanguage =
+    JSON.parse(localStorage.getItem('language')) || undefined;
 
   const { cities, fetching, fetchingImage, image, weekForecast } = useSelector(
     (state) => state.weather
@@ -40,10 +43,6 @@ export function WeekWeatherData() {
   const date = format(new Date(), 'dd MMMM', {
     locale: langMap[i18n.language],
   });
-
-  const handleLanguageChange = (lang = 'en') => {
-    i18next.changeLanguage(lang.name);
-  };
 
   const handleCitySelect = async (item) => {
     localStorage.setItem('selectedCity', JSON.stringify(item));
@@ -81,7 +80,11 @@ export function WeekWeatherData() {
           />
         </DropdownBig>
         <DropdownSmall>
-          <Dropdown onSelect={handleLanguageChange} list={LANGUAGES} />
+          <Dropdown
+            onSelect={handleLanguageChange}
+            list={LANGUAGES}
+            defaultSelected={localStoreLanguage}
+          />
         </DropdownSmall>
         <DateElement>{date}</DateElement>
       </DataSection>

@@ -58,7 +58,7 @@ export function StyledDropdown(props) {
     } else {
       setSelectedOption(props.list[0]);
     }
-  }, [props.list]);
+  }, [props.list, props.defaultSelected]);
 
   //Set input width acording to filter key word
   useEffect(() => {
