@@ -18,3 +18,7 @@ export const handleLanguageChange = (lang = 'en') => {
   i18next.changeLanguage(lang.name);
   localStorage.setItem('language', JSON.stringify(lang));
 };
+
+// Get language from localStorage
+export const getLocalLanguage = () =>
+  JSON.parse(localStorage.getItem('language')) || undefined;

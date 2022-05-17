@@ -6,7 +6,7 @@ import { getCityLatLongImageUrban } from '../../helper/api';
 import { LANGUAGES } from '../../constants/language';
 import i18next from 'i18next';
 
-import { handleLanguageChange } from '../../helper/functions';
+import { getLocalLanguage, handleLanguageChange } from '../../helper/functions';
 import {
   fetchWeather,
   setFetchingImage,
@@ -34,9 +34,7 @@ const langMap = {
 export function WeekWeatherData() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
-  const localStoreLanguage =
-    JSON.parse(localStorage.getItem('language')) || undefined;
-
+  const localStoreLanguage = getLocalLanguage();
   const { cities, fetching, fetchingImage, image, weekForecast } = useSelector(
     (state) => state.weather
   );
