@@ -97,8 +97,6 @@ const DropdownSmall = styled(Dropdown)`
 
   @media (max-width: 1024px) {
     display: block;
-    top: 9px;
-    right: 5px;
     z-index: 10;
   }
 `;
