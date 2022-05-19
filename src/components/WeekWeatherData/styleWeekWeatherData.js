@@ -1,5 +1,48 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Dropdown } from '../UI/Dropdown';
+
+export const Background = css`
+  //Background Gradient
+  background: rgb(80, 142, 155);
+  background: linear-gradient(
+    45deg,
+    rgba(80, 142, 155, 1) 0%,
+    rgba(32, 104, 119, 1) 27%,
+    rgba(31, 123, 128, 1) 43%,
+    rgba(83, 152, 137, 1) 69%,
+    rgba(82, 148, 141, 1) 100%
+  );
+`;
+
+const showAndHideAnimation = css`
+  @keyframes show {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      height: 0;
+      padding: 0;
+    }
+
+    100% {
+      opacity: 100%;
+      visibility: visible;
+      max-height: 100%;
+    }
+  }
+  @keyframes hide {
+    0% {
+      opacity: 100%;
+      max-height: 100%;
+      padding: 2rem;
+    }
+
+    100% {
+      visibility: hidden;
+      max-height: 0;
+      padding: 0;
+    }
+  }
+`;
 
 export const Container = styled.div`
   overflow: hidden;
@@ -11,6 +54,9 @@ export const Container = styled.div`
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 1rem;
+  scroll-snap-align: start;
+
+  ${Background}
 
   //Tablet
   @media (max-width: 1024px) {
@@ -21,6 +67,10 @@ export const Container = styled.div`
   @media (max-width: 767px) {
     /* CSS */
     grid-template-rows: repeat(1, 1fr);
+    grid-area: week;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 `;
 
@@ -47,14 +97,31 @@ export const DataSection = styled.div`
   //Mobile
   @media (max-width: 767px) {
     height: 50%;
+
+    &.show {
+      animation-name: show;
+      animation-duration: 1s;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+      padding: 2rem;
+      opacity: 1;
+    }
+    &.hide {
+      animation-name: hide;
+      animation-duration: 1s;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+      opacity: 0;
+    }
   }
+
+  ${showAndHideAnimation}
 `;
 
 export const DateElement = styled.h3`
   text-transform: uppercase;
   color: var(--color-white);
   font-weight: 100;
-  margin-top: 1.12rem;
   opacity: 0.85;
 `;
 
@@ -89,5 +156,21 @@ export const DropdownSmall = styled(Dropdown)`
 
   @media (max-width: 1024px) {
     display: none;
+  }
+`;
+
+export const CitySelectSection = styled.div`
+  grid-area: select;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //Desktop
+  @media (min-width: 767px) {
+    display: none;
+  }
+
+  &.background {
+    ${Background}
+    padding: 1rem;
   }
 `;

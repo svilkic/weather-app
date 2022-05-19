@@ -36,5 +36,12 @@ const ContainerDiv = styled.div`
     /* CSS */
     height: 95%;
     width: 95%;
+    grid-template-areas:
+      'select'
+      'current'
+      'additional'
+      'week';
+    grid-template-columns: unset;
+    grid-template-rows: unset;
   }
 `;

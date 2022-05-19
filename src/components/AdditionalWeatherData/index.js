@@ -54,6 +54,7 @@ const Container = styled.div`
   //Mobile
   @media (max-width: 767px) {
     /* CSS */
+    grid-area: additional;
   }
 `;
 
