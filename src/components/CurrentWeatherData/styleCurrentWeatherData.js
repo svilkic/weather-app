@@ -30,6 +30,7 @@ export const Container = styled.div`
   //Mobile
   @media (max-width: 767px) {
     padding: 15px 10px;
+    grid-area: current;
   }
 `;
 

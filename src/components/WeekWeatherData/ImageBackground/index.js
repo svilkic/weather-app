@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Spinner } from '../../UI/Spinner';
+import { Background } from '../styleWeekWeatherData';
 
 export const ImageBackground = ({ fetching, url }) => {
   const [longFetching, setLongFetching] = useState(false);
@@ -50,10 +51,13 @@ const BackgroundImage = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(${(props) => props.img || ''});
-  background-position: bottom;
-  background-size: cover;
-  filter: brightness(1.1) saturate(1.1) contrast(1.1);
+  ${Background}
+  @media (min-width: 767px) {
+    background: url(${(props) => props.img || ''});
+    filter: brightness(1.1) saturate(1.1) contrast(1.1);
+    background-size: cover;
+    background-position: bottom;
+  }
 `;
 
 const SpinnerDiv = styled.span`

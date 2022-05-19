@@ -53,6 +53,7 @@ export const SearchFilter = styled.input`
 export const StyledArrowDown = styled(IoIosArrowDown)`
   transition: all 300ms;
   transform: rotate(${(props) => (props.rotate ? '180deg' : '360deg')});
+  max-width: 2rem;
 `;
 
 export const DropDownListContainer = styled.div`

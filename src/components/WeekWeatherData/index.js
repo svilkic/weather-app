@@ -24,7 +24,9 @@ import {
   GradiantBackdrop,
   WeekCards,
   DropdownSmall,
+  CitySelectSection,
 } from './styleWeekWeatherData';
+import { useInView } from 'react-intersection-observer';
 
 const langMap = {
   en: enUS,
@@ -38,6 +40,9 @@ export function WeekWeatherData() {
   const { cities, fetching, fetchingImage, image, weekForecast } = useSelector(
     (state) => state.weather
   );
+
+  const { ref: dropdownRef, inView: inView } = useInView();
+
   const date = format(new Date(), 'dd MMMM', {
     locale: langMap[i18n.language],
   });
@@ -65,10 +70,12 @@ export function WeekWeatherData() {
     }
   }, [cities]);
 
+  const DateComponent = <DateElement>{date}</DateElement>;
+
   return (
-    <Container>
-      <ImageBackground fetching={fetchingImage} url={image} />
-      <DataSection className='CitySelect'>
+    <>
+      {/* Mobile City Select */}
+      <CitySelectSection className='background' ref={dropdownRef}>
         <DropdownBig>
           <Dropdown
             list={cities}
@@ -77,29 +84,46 @@ export function WeekWeatherData() {
             searchable
           />
         </DropdownBig>
-        <DropdownSmall>
-          <Dropdown
-            onSelect={handleLanguageChange}
-            list={LANGUAGES}
-            defaultSelected={localStoreLanguage}
-          />
-        </DropdownSmall>
         <DateElement>{date}</DateElement>
-      </DataSection>
-      <WeekCards>
-        {weekForecast?.map((forcast, i) =>
-          i > 0 ? (
-            <WeekCard
-              key={i}
-              symbol={forcast.weather[0].id}
-              description={forcast.weather[0].description}
-              temp={forcast.temp.day}
-              day={forcast.dt}
+      </CitySelectSection>
+      {/* Week Component */}
+      <Container>
+        <ImageBackground fetching={fetchingImage} url={image} />
+        <DataSection className={`CitySelect ${!inView ? 'show' : 'hide'}`}>
+          <>
+            <DropdownBig>
+              <Dropdown
+                list={cities}
+                onSelect={handleCitySelect}
+                defaultSelected={selectedCity}
+                searchable
+              />
+            </DropdownBig>
+            <DateElement>{date}</DateElement>
+          </>
+          <DropdownSmall>
+            <Dropdown
+              onSelect={handleLanguageChange}
+              list={LANGUAGES}
+              defaultSelected={localStoreLanguage}
             />
-          ) : undefined
-        )}
-      </WeekCards>
-      <GradiantBackdrop />
-    </Container>
+          </DropdownSmall>
+        </DataSection>
+        <WeekCards>
+          {weekForecast?.map((forcast, i) =>
+            i > 0 ? (
+              <WeekCard
+                key={i}
+                symbol={forcast.weather[0].id}
+                description={forcast.weather[0].description}
+                temp={forcast.temp.day}
+                day={forcast.dt}
+              />
+            ) : undefined
+          )}
+        </WeekCards>
+        <GradiantBackdrop />
+      </Container>
+    </>
   );
 }
