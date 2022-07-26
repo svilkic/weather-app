@@ -2,7 +2,20 @@
 
 # Modern React Weather App
 
-Simple weather app that displays weather forecast for 7 days for selected city.
+Minimalistic weather app that displays weather forecast for 7 days for selected city. Created as small team project with goal of using lates React trends, creating complex animations and transitions from scratch, and improving overall teamwork and knowledge.
+
+[DEMO](https://svilkic.github.io/weather-app/)
+
+## Video Example
+
+<div align="center">
+ <h3>Desktop</h3>
+ <img src="./project-assets/weathery-desktop.gif" alt="Example Video" width="60%" align="center" />
+ <h3>Mobile</h3>
+ <img src="./project-assets/weathery-mobile.gif" alt="Example Video" width="60%" align="center" />
+</div>
+
+<hr />
 
 ## Instructions:
 
